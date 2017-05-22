@@ -1,0 +1,22 @@
+get:
+  summary: User Find By Keywords
+  description: >-
+    Searches for a user by keywords included in the displayName
+  parameters:
+    - name: searchString
+      in: query
+      type: string
+      format: string
+      description: The string to search for.
+  tags:
+    - User
+  responses:
+    '200':
+      description: Matching users
+      schema:
+        $ref: '#/definitions/User'
+    default:
+      description: Unexpected error
+      schema:
+        $ref: '#/definitions/Error'
+

@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Playola Api
-  description: Move your app forward with the Uber API
+  description: Build and listen to internet radio stations.
   version: 1.0.0
 host: api.playola.fm
 schemes:
