@@ -1,0 +1,10 @@
+{
+  "generator-openapi-repo": {
+    "importExistingSpec": false,
+    "name": "playola",
+    "repo": "lonesomewhistle/playolafrontend",
+    "splitSpec": true,
+    "samples": false,
+    "installSwaggerUI": true
+  }
+}
