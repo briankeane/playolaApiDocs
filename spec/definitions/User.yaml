@@ -6,37 +6,37 @@ properties:
   displayName:
     type: string
     description: The user's playola display name.
-    example: "Bob"
+    example: Bob
   email:
     type: string
     description: The user's email
-    example: "bob@bob.com"
+    example: bob@bob.com
   gender:
     type: string
     description: The user's gender
-    example: "male"
+    example: male
   zipcode:
     type: string
     description: The user's 5-digit zipcode.
-    example: "78748"
+    example: '78748'
   timezone:
     type: string
     description: The user's timezone.
-    example: "America/Chicago"
+    example: America/Chicago
   bio:
     type: string
     description: >-
       A bio written by the user.  Does not exist if the user has not chosen to
       provide one.
-    example: "Nothing to see here. Please move along..."
+    example: Nothing to see here. Please move along...
   role:
     type: string
     description: The user's access role.
-    example: "user"
+    example: user
   provider:
     type: string
     description: 'The method by which the user first signed in. ''google'', ''facebook'''
-    example: "google"
+    example: google
   lastCommercial:
     type: object
     properties:
@@ -59,7 +59,7 @@ properties:
     type: string
     format: date-time
     description: The last time that dailyListenTimeMS was calculated.
-    example: "1983-04-15T12:15:00.000Z"
+    example: '1983-04-15T12:15:00.000Z'
   rules:
     type: object
     description: A set of customizable rules for the scheduling of the user's station
@@ -93,11 +93,12 @@ properties:
   profileImageKey:
     type: string
     description: The s3 key where the user's profileImage is stored.
-    example: "56f2f89c43e6372664ca6e7c.jpg"
+    example: 56f2f89c43e6372664ca6e7c.jpg
   profileImageUrl:
     type: string
     description: The url where the user's profileImage can be downloaded.
-    example: "//s3-us-west-2.amazonaws.com/playolaprofileimagesdevelopment/56f2f89c43e6372664ca6e7c.jpg"
+    example: >-
+      //s3-us-west-2.amazonaws.com/playolaprofileimagesdevelopment/56f2f89c43e6372664ca6e7c.jpg
   passwordExists:
     type: boolean
     description: True if the user has set a password.
@@ -107,7 +108,9 @@ properties:
     description: >-
       A link to the user's station through the app.  To send a link to the
       station, prepend with 'playola://'
-    example: "bobsCoolStation"
+    example: bobsCoolStation
   playlist:
-    type: object
-    description: GET BACK TO THIS
+    type: array
+    description: An array of all spins scheduled for the next several hours.
+    items:
+      $ref: '#/definitions/Spin'

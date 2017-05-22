@@ -1,0 +1,9 @@
+type: object
+properties:
+  code:
+    type: integer
+    format: int32
+    example: 422
+  message:
+    type: string
+    example: "Missing Parameters: [missing parameters listed here...]"

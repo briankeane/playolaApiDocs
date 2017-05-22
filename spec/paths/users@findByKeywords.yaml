@@ -15,8 +15,8 @@ get:
       description: Matching users
       schema:
         $ref: '#/definitions/User'
-    default:
-      description: Unexpected error
+    '422':
+      description: Missing Parameters
       schema:
-        $ref: '#/definitions/Error'
+        $ref: '#/definitions/ErrorMissingParameters'
 
