@@ -1,0 +1,55 @@
+put:
+  summary: Move Spin
+  consumes:
+    - application/json
+  description: Move a spin to a new playlistPosition within the authenticated user's playlist.
+  parameters:
+    - name: id
+      type: string
+      in: path
+      required: true
+      description: The id of the spin to be moved
+    - name: data
+      in: body
+      description: Get Customer Details
+      schema:
+        type: object
+        required:
+          - newPlaylistPosition
+        properties:
+          newPlaylistPosition:
+            type: integer
+            description: The desired playlistPosition.
+            example: 35
+      
+  tags:
+    - User
+  responses:
+    '200':
+      description: Success
+      schema:
+        type: object
+        properties:
+          user:
+            $ref: '#/definitions/User'
+    '401':
+      description: Unauthorized
+    '404':
+      description: Spin Not Found
+      schema:
+        type: object
+        properties:
+          message:
+            type: string
+            example: spin not found
+          errorCode:
+            type: integer
+            example: 1221
+    '422':
+      description: Unprocessable Entity
+      schema:
+        type: object
+        properties:
+          message:
+            type: string
+            example: invalid newPlaylistPosition
