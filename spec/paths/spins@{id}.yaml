@@ -9,7 +9,7 @@ delete:
       required: true
       description: The id of the spin to remove
   tags:
-    - User
+    - Spin
   responses:
     '200':
       description: Success

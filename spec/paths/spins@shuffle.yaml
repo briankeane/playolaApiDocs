@@ -1,0 +1,20 @@
+put:
+  summary: Shuffle Spins
+  consumes:
+    - application/json
+  description: >-
+    Shuffle the spins of the authenticated user.  This will shuffle everything
+    after the next few spins.
+  parameters: []
+  tags:
+    - Spin
+  responses:
+    '200':
+      description: Success
+      schema:
+        type: object
+        properties:
+          user:
+            $ref: '#/definitions/User'
+    '401':
+      description: Unauthorized

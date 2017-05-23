@@ -23,7 +23,7 @@ put:
             example: 35
       
   tags:
-    - User
+    - Spin
   responses:
     '200':
       description: Success
