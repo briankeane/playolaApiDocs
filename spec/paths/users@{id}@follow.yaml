@@ -25,7 +25,7 @@ put:
     '404':
       description: User Not Found
       schema:
-        $ref: '#definitions/ErrorUserNotFound'
+        $ref: '#/definitions/ErrorUserNotFound'
     '422':
       description: Missing Parameters
       schema:
