@@ -1,0 +1,44 @@
+get:
+  summary: GET users by attributes
+  description: Searches for users by any combination of these properties
+  parameters:
+    - name: facebookUIDs
+      in: query
+      type: array
+      items:
+        type: string
+      description: An array of facebookUIDs to search for
+    - name: googleUIDs
+      in: query
+      type: array
+      items:
+        type: string
+      description: An array of googleUIDs to search for
+    - name: emails
+      in: query
+      type: array
+      items:
+        type: string
+      description: An array of emails to search for
+    - name: deepLink
+      in: query
+      type: array
+      items:
+        type: string
+      description: An array of deepLinks to search for
+  tags:
+    - User
+  responses:
+    '200':
+      description: Success
+      schema:
+        type: object
+        properties:
+          searchResults:
+            type: array
+            items:
+              $ref: '#/definitions/User'
+    '422':
+      description: Unprocessable Entity
+      schema:
+        $ref: '#/definitions/ErrorMissingParameters'
