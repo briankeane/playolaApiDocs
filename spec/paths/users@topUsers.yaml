@@ -1,0 +1,16 @@
+get:
+  summary: GET topUsers
+  description: >-
+    Provides a list of the top broadcasters on playola
+  tags:
+    - User
+  responses:
+    '200':
+      description: Success
+      schema:
+        type: object
+        properties:
+          searchResults:
+            type: array
+            items:
+              $ref: '#/definitions/User'

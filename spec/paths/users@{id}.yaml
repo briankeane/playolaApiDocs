@@ -1,0 +1,25 @@
+get:
+  summary: Get User
+  description: Searches for a user by keywords included in the displayName
+  parameters:
+    - name: id
+      in: path
+      type: string
+      format: string
+      required: true
+      description: 'The id of the user to get.  For the authenticated user, use ''me'''
+  tags:
+    - User
+  responses:
+    '200':
+      description: Success
+      schema:
+        $ref: '#/definitions/User'
+    '404':
+      description: User Not Found
+      schema:
+        $ref: '#/definitions/ErrorUserNotFound'
+    '422':
+      description: Unprocessable Entity
+      schema:
+        $ref: '#/definitions/ErrorMissingParameters'
