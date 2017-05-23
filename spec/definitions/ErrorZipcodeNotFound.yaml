@@ -1,0 +1,9 @@
+type: object
+properties:
+  code:
+    type: integer
+    format: int32
+    example: 404
+  message:
+    type: string
+    example: "zipcode not found"

@@ -10,7 +10,7 @@ get:
       schema:
         type: object
         properties:
-          searchResults:
+          topUsers:
             type: array
             items:
               $ref: '#/definitions/User'

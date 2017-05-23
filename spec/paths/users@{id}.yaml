@@ -23,3 +23,70 @@ get:
       description: Unprocessable Entity
       schema:
         $ref: '#/definitions/ErrorMissingParameters'
+put:
+  summary: Edit User
+  description: Edits a user.
+  tags:
+    - User
+  parameters:
+    - name: id
+      in: path
+      type: string
+      format: string
+      required: true
+      description: 'The id of the user to get.  For the authenticated user, use ''me'''
+    - name: data
+      in: body
+      description: Data to change
+      schema:
+        type: object
+        properties:
+          displayName:
+            type: string
+            description: The user's playola display name.
+            example: Bob
+          email:
+            type: string
+            description: The user's email
+            example: bob@bob.com
+          gender:
+            type: string
+            description: The user's gender
+            example: male
+          zipcode:
+            type: string
+            description: The user's 5-digit zipcode.
+            example: '78748'
+          timezone:
+            type: string
+            description: The user's timezone.
+            example: America/Chicago
+          bio:
+            type: string
+            description: >-
+              A bio written by the user.  Does not exist if the user has not chosen to
+              provide one.
+            example: Nothing to see here. Please move along...
+          profileImageKey:
+            type: string
+            description: The s3 key where the user's profileImage is stored.
+            example: 56f2f89c43e6372664ca6e7c.jpg
+          deepLink:
+            type: string
+            description: >-
+              A link to the user's station through the app.  To send a link to the
+              station, prepend with 'playola://'
+            example: bobsCoolStation
+  responses:
+    '200':
+      description: Success
+      schema:
+        $ref: '#/definitions/User'
+    '404':
+      description: User Not Found
+      schema:
+        $ref: '#/definitions/ErrorUserNotFound'
+    '422':
+      description: Unprocessable Entity
+      schema:
+        $ref: '#/definitions/ErrorZipcodeNotFound'

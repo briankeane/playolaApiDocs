@@ -26,6 +26,10 @@ get:
       items:
         type: string
       description: An array of deepLinks to search for
+    - name: passwordResetKey
+      in: query
+      type: string
+      description: A passwordResetKey to search for
   tags:
     - User
   responses:

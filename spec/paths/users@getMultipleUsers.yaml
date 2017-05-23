@@ -1,0 +1,22 @@
+get:
+  summary: GET users by attributes
+  description: Searches for users by any combination of these properties
+  parameters:
+    - name: userIDs
+      in: query
+      type: array
+      items:
+        type: string
+      description: An array of userIDs to search for
+  tags:
+    - User
+  responses:
+    '200':
+      description: Success
+      schema:
+        type: object
+        properties:
+          searchResults:
+            type: array
+            items:
+              $ref: '#/definitions/User'
