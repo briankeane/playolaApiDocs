@@ -1,0 +1,41 @@
+delete:
+  summary: Remove Spin
+  description: >-
+    Remove the upcoming spin from the user's playlist.
+  parameters:
+    - name: id
+      type: string
+      in: path
+      required: true
+      description: The id of the spin to remove
+  tags:
+    - User
+  responses:
+    '200':
+      description: Success
+      schema:
+        type: object
+        properties:
+          user:
+            $ref: '#/definitions/User'
+    '401':
+      description: Unauthorized
+    '404':
+      description: Spin Not Found
+      schema:
+        type: object
+        properties:
+          message:
+            type: string
+            example: 'spin not found'
+          errorCode:
+            type: integer
+            example: 1221
+    '422':
+      description: Invalid spinID
+      schema:
+        type: object
+        properties:
+          message: 
+            type: string
+            example: 'invalid spinID'

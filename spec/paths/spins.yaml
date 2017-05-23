@@ -1,0 +1,56 @@
+post:
+  summary: Create Spin
+  consumes:
+    - application/json
+  description: Remove the upcoming spin from the user's playlist.
+  parameters:
+    - name: data
+      in: body
+      description: Get Customer Details
+      schema:
+        type: object
+        required:
+          - audioBlockID
+          - playlistPosition
+        properties:
+          audioBlockID:
+            type: string
+            description: The id of the audioBlock to be added
+            example: '5ececb7b53011669706e2cd0'
+          playlistPosition:
+            type: integer
+            description: The desired playlistPosition.
+            example: 35
+  tags:
+    - User
+  responses:
+    '200':
+      description: Success
+      schema:
+        type: object
+        properties:
+          user:
+            $ref: '#/definitions/User'
+    '401':
+      description: Unauthorized
+    '404':
+      description: Spin Not Found
+      schema:
+        type: object
+        properties:
+          message:
+            type: string
+            example: spin not found
+          errorCode:
+            type: integer
+            example: 1221
+    '422':
+      description: Unprocessable Entity
+      schema:
+        type: object
+        properties:
+          message:
+            type: string
+            example: invalid audioBlockID
+
+
