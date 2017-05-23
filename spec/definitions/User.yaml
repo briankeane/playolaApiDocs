@@ -3,6 +3,7 @@ properties:
   id:
     type: string
     description: The user's playola id.
+    example: "553ececb7be2cd0011669706"
   displayName:
     type: string
     description: The user's playola display name.

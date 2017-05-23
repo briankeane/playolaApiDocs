@@ -7,16 +7,22 @@ get:
       in: query
       type: string
       format: string
+      required: true
       description: The string to search for.
   tags:
     - User
   responses:
     '200':
-      description: Matching users
+      description: Success
       schema:
-        $ref: '#/definitions/User'
+        type: object
+        properties:
+          searchResults:
+            type: array
+            items:
+              $ref: '#/definitions/User'
     '422':
-      description: Missing Parameters
+      description: Unprocessable Entity
       schema:
         $ref: '#/definitions/ErrorMissingParameters'
 

@@ -8,12 +8,14 @@ properties:
     type: string
     format: date-time
     description: The scheduled airtime of the spin.
-    example: "2017-02-16T12:46:19.360Z"
+    example: '2017-02-16T12:46:19.360Z'
   id:
     type: string
     description: The id of the spin.
-    example: "58a59f25e6351a94385a9233"
+    example: 58a59f25e6351a94385a9233
   audioBlock:
     type: object
-    description: The audioBlock to be played.  It can be a song, a voicetrack, or a commercialBlock.
+    description: >-
+      The audioBlock to be played.  It can be a song, a voicetrack, or a
+      commercialBlock.
     $ref: '#/definitions/Song'

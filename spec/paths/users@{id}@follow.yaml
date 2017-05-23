@@ -1,0 +1,32 @@
+put:
+  summary: Follow User
+  description: >-
+    Adds the user to the authenticated user's presets.
+  parameters:
+    - name: id
+      type: string
+      in: path
+      required: true
+      description: The id of the user to follow
+  tags:
+    - User
+  responses:
+    '201':
+      description: Success
+      schema:
+        type: object
+        properties:
+          presets:
+            type: array
+            items:
+              $ref: '#/definitions/User'
+    '401':
+      description: Unauthorized
+    '404':
+      description: User Not Found
+      schema:
+        $ref: '#definitions/ErrorUserNotFound'
+    '422':
+      description: Missing Parameters
+      schema:
+        $ref: '#/definitions/ErrorMissingParameters'
