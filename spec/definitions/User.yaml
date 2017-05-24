@@ -115,3 +115,10 @@ properties:
     description: An array of all spins scheduled for the next several hours.
     items:
       $ref: '#/definitions/Spin'
+  stationStatus:
+    type: string
+    description: >-
+      Exists only if station is starting or restarting.  Possible values are:
+        'generating', 'error shuffling station', 'error resetting rotationItems', 
+        'error getting recommendations'
+    example: 'generating'

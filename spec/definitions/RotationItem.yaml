@@ -1,0 +1,55 @@
+type: object
+properties:
+  id:
+    type: string
+    description: The id of the rotationItem.
+    example: 58a59f25e6351a94385a9233
+  user:
+    type: integer
+    description: A number representing the spin's position within the user's playlist.
+    example: 32
+  song:
+    type: object
+    $ref: '#/definitions/Song'
+  userID:
+    type: string
+    description: The owning user's id.
+    example: 58a59f25e6351a94385a9233
+  eom:
+    type: integer
+    example: 180000
+    description: >-
+      If this value exists, it will replace values contained within the song, so
+      that the user's fade-in/fade-outs can be customized.
+  boo:
+    type: integer
+    example: 170000
+    description: >-
+      If this value exists, it will replace values contained within the song, so
+      that the user's fade-in/fade-outs can be customized.
+  eoi:
+    type: integer
+    example: 10000
+    description: >-
+      If this value exists, it will replace values contained within the song, so
+      that the user's fade-in/fade-outs can be customized.
+  bin:
+    type: string
+    example: heavy
+  assignedAt:
+    type: string
+    format: date-time
+    example: '2017-02-16T12:46:19.360Z'
+  history:
+    type: array
+    description: This contains the history of the song's bin settings for this station.
+    items:
+      type: object
+      properties:
+        bin:
+          type: string
+          example: medium
+        assignedAt:
+          type: string
+          format: date-time
+          example: '2017-02-16T12:46:19.360Z'

@@ -1,0 +1,71 @@
+put:
+  summary: Reset Station
+  consumes:
+    - application/json
+  description: >-
+    Resets a user's station.  This will reset all the user's rotationItems
+    and reschedule their playlist.  If they do not yet have a station running
+    then it will be created and started.
+
+    The process of starting a station could take up to 60 secs, so this endpoint
+    response 200 indicating that the process has been successfully started. To monitor
+    progress, poll '/users/me' until the stationStatus property no longer equals 'generating'.
+    If there is an error in creating the station, the stationStatus will be changed to indicate
+    the type of error, and the station will remain the same as before.
+  parameters:
+    - name: data
+      in: body
+      description: Get Customer Details
+      schema:
+        type: object
+        properties:
+          spotifyTrackIDs:
+            type: array
+            items:
+              type: string
+            description: >-
+              An array of spotifyTrackIDs.  The new station will included as many
+              of these tracks as possible in the new station.  If there are not enough
+              to create a station, it will pad the station with similar songs.
+            example: ['7BvpGkNPd49xhN7EguxJz0', '0ujUgkXNyHUgZDKZW6Knxw']
+          spotifyArtistIDs:
+            type: array
+            items:
+              type: string
+            description: >-
+              An array of spotifyArtistIDs.  The new station will consist of songs
+              by these artists and similar to these artists.
+            example: ['04DUpHOyQqwbHFyvIhcGi3', '5Fl8WfOtEyX44OncOpcrhQ']
+      
+  tags:
+    - User
+  responses:
+    '200':
+      description: Success
+      schema:
+        type: object
+        properties:
+          message:
+            type: string
+            example: station restarting.
+    '401':
+      description: Unauthorized
+    '404':
+      description: User Not Found
+      schema:
+        type: object
+        properties:
+          message:
+            type: string
+            example: user not found
+          errorCode:
+            type: integer
+            example: 1221
+    '422':
+      description: Unprocessable Entity
+      schema:
+        type: object
+        properties:
+          message:
+            type: string
+            example: spotifyArtistIDs or spotifyTrackIDs required.

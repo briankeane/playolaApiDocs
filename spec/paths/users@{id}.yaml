@@ -77,6 +77,16 @@ put:
               A link to the user's station through the app.  To send a link to the
               station, prepend with 'playola://'
             example: bobsCoolStation
+          addAppleNotificationDeviceToken:
+            type: string
+            description: >-
+              An apple notification device token -- if this param is included in the query,
+              it will be added to any already existing apple notification device tokens.
+          removeAppleNotificationDeviceToken:
+            type: string
+            description: >-
+              An apple notification device token -- if this param is included in the query,
+              it will be removed from the list of the user's apple notification device tokens.
   responses:
     '200':
       description: Success
