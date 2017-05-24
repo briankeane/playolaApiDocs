@@ -1,0 +1,54 @@
+delete:
+  summary: Deactivate RotationItem
+  consumes:
+    - application/json
+  description: >-
+    A soft delete of the rotationItem -- it will remove the rotationItem from
+    rotation and set it's bin to "inactive"
+  parameters:
+    - name: id
+      type: string
+      in: path
+      required: true
+      description: 'The id of the user -- for the authenticated user, use ''me'''
+  tags:
+    - User
+  responses:
+    '200':
+      description: Success
+      schema:
+        type: object
+        properties:
+          heavy:
+            type: array
+            items:
+              $ref: '#/definitions/RotationItem'
+          medium:
+            type: array
+            items:
+              $ref: '#/definitions/RotationItem'
+          light:
+            type: array
+            items:
+              $ref: '#/definitions/RotationItem'
+    '401':
+      description: Unauthorized
+    '404':
+      description: RotationItem Not Found
+      schema:
+        type: object
+        properties:
+          message:
+            type: string
+            example: user not found
+          errorCode:
+            type: integer
+            example: 1221
+    '422':
+      description: Unprocessable Entity
+      schema:
+        type: object
+        properties:
+          message:
+            type: string
+            example: invalid ID
