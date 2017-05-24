@@ -1,5 +1,5 @@
 post:
-  summary: Create RotationItems
+  summary: Create RotationItem
   consumes:
     - application/json
   description: 'Returns the user''s active rotationItems, organized by bin.'
@@ -13,6 +13,10 @@ post:
             type: string
             description: The id of the song to be added
             example: '5531636b4b1f7e86214235cc'
+          songIDs:
+            type: array
+            description: multiple songs can be added at once
+            example: ['5531636b4b1f7e86214235cc','5531636b4b1f7e86214235cc']
           bin:
             type: string
             description: The song bin to add it to.
