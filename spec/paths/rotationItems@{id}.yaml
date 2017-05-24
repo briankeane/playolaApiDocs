@@ -12,7 +12,7 @@ delete:
       required: true
       description: 'The id of the user -- for the authenticated user, use ''me'''
   tags:
-    - User
+    - RotationItem
   responses:
     '200':
       description: Success
@@ -31,6 +31,91 @@ delete:
             type: array
             items:
               $ref: '#/definitions/RotationItem'
+    '401':
+      description: Unauthorized
+    '404':
+      description: RotationItem Not Found
+      schema:
+        type: object
+        properties:
+          message:
+            type: string
+            example: user not found
+          errorCode:
+            type: integer
+            example: 1221
+    '422':
+      description: Unprocessable Entity
+      schema:
+        type: object
+        properties:
+          message:
+            type: string
+            example: invalid ID
+put:
+  summary: Update RotationItem
+  consumes:
+    - application/json
+  description: Updates the rotationItem.
+  parameters:
+    - name: id
+      type: string
+      in: path
+      required: true
+      description: The id of the rotationItem to be updated
+    - name: data
+      in: body
+      schema:
+        type: object
+        properties:
+          eom:
+            type: integer
+            example: 180000
+            description: >-
+              If this value exists, it will replace values contained within the
+              song, so that the user's fade-in/fade-outs can be customized.
+          boo:
+            type: integer
+            example: 170000
+            description: >-
+              If this value exists, it will replace values contained within the
+              song, so that the user's fade-in/fade-outs can be customized.
+          eoi:
+            type: integer
+            example: 10000
+            description: >-
+              If this value exists, it will replace values contained within the
+              song, so that the user's fade-in/fade-outs can be customized.
+          bin:
+            type: string
+            example: heavy
+  tags:
+    - RotationItem
+  responses:
+    '200':
+      description: Success
+      schema:
+        type: object
+        properties:
+          rotationItems:
+            type: object
+            properties:
+              heavy:
+                type: array
+                items:
+                  $ref: '#/definitions/RotationItem'
+              medium:
+                type: array
+                items:
+                  $ref: '#/definitions/RotationItem'
+              light:
+                type: array
+                items:
+                  $ref: '#/definitions/RotationItem'
+          updatedRotationItem:
+            $ref: '#/definitions/RotationItem'
+    '400':
+      description: Minimum Bin Violation
     '401':
       description: Unauthorized
     '404':
