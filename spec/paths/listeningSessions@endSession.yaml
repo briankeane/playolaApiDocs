@@ -1,0 +1,28 @@
+post:
+  summary: End Listening Session
+  consumes:
+    - application/json
+  description: >-
+    Ends a listeningSession for the authenticated user.
+  tags:
+    - ListeningSession
+  responses:
+    '200':
+      description: Success
+      schema:
+        type: object
+        properties:
+          message:
+            type: string
+            example: success
+    '404':
+      description: userBeingListenedToID Not Found
+      schema:
+        type: object
+        properties:
+          message:
+            type: string
+            example: user not found
+          errorCode:
+            type: integer
+            example: 1221

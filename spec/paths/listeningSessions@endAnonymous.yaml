@@ -1,0 +1,46 @@
+post:
+  summary: End Anonymous Listening Session
+  consumes:
+    - application/json
+  description: >-
+    Ends an anonymous listeningSession
+  parameters:
+    - name: data
+      in: body
+      schema:
+        type: object
+        properties:
+          deviceID:
+            type: string
+            description: A unique deviceID for the listener
+            example: 5531636b4b1f7e86214235cc
+  tags:
+    - ListeningSession
+  responses:
+    '200':
+      description: Success
+      schema:
+        type: object
+        properties:
+          message:
+            type: string
+            example: success
+    '404':
+      description: userBeingListenedToID Not Found
+      schema:
+        type: object
+        properties:
+          message:
+            type: string
+            example: user not found
+          errorCode:
+            type: integer
+            example: 1221
+    '422':
+      description: Unprocessable Entity
+      schema:
+        type: object
+        properties:
+          message:
+            type: string
+            example: invalid ID

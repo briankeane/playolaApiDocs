@@ -1,0 +1,49 @@
+post:
+  summary: Create Listening Session
+  consumes:
+    - application/json
+  description: >-
+    Creates a listeningSession.  If there is another listeningSession open,
+    it will be closed (or extended if userBeingListenedToID matches).
+  parameters:
+    - name: data
+      in: body
+      schema:
+        type: object
+        properties:
+          userBeingListenedToID:
+            type: string
+            description: The id of the user being listened to
+            example: 5531636b4b1f7e86214235cc
+  tags:
+    - ListeningSession
+  responses:
+    '200':
+      description: Success
+      schema:
+        type: object
+        properties:
+          message:
+            type: string
+            example: success
+    '401':
+      description: Unauthorized
+    '404':
+      description: userBeingListenedToID Not Found
+      schema:
+        type: object
+        properties:
+          message:
+            type: string
+            example: user not found
+          errorCode:
+            type: integer
+            example: 1221
+    '422':
+      description: Unprocessable Entity
+      schema:
+        type: object
+        properties:
+          message:
+            type: string
+            example: invalid ID
