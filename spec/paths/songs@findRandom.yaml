@@ -1,0 +1,94 @@
+get:
+  summary: Song Find Random
+  description: 'Searches for songs by attributes, returns randomized query results'
+  parameters:
+    - name: searchString
+      in: query
+      type: string
+      format: string
+      required: true
+      description: The string to search for.
+    - name: id
+      in: query
+      type: string
+      description: The song's playola id.
+    - name: title
+      in: query
+      type: string
+      description: The title of the song.
+    - name: artist
+      in: query
+      type: string
+      description: The artist's name.
+    - name: album
+      in: query
+      type: string
+      description: The album that the song comes from.
+    - name: isrc
+      in: query
+      type: string
+      description: The song's isrc code.
+    - name: key
+      in: query
+      type: string
+      description: The s3 key for the song's file location.
+    - name: audioFileUrl
+      in: query
+      type: string
+      description: The url where the audio file can be downloaded
+    - name: duration
+      in: query
+      type: integer
+      description: The duration of the song in ms.
+    - name: albumArtworkUrl
+      in: query
+      type: string
+      description: The location of the albumArtwork file.
+    - name: albumArtworkUrlSmall
+      in: query
+      type: string
+      description: The location of a smaller albumArtwork file if available.
+    - name: spotifyID
+      in: query
+      type: string
+      description: The song's spotify track id.
+    - name: trackViewUrl
+      in: query
+      type: string
+      description: The iTunes 'buy' link for the song.
+    - name: eom
+      in: query
+      type: integer
+      description: >-
+        The 'end of message' in ms.  (The point where exit crossfade should
+        begin song-to-song)
+    - name: boo
+      in: query
+      type: integer
+      description: The 'beginning of outro' in ms.
+    - name: eoi
+      in: query
+      type: integer
+      description: The 'end of intro' in ms.
+  tags:
+    - Song
+  responses:
+    '200':
+      description: Success
+      schema:
+        type: object
+        properties:
+          total:
+            type: integer
+            example: 2000
+          matching:
+            type: integer
+            example: 20
+          searchResults:
+            type: array
+            items:
+              $ref: '#/definitions/Song'
+    '422':
+      description: Unprocessable Entity
+      schema:
+        $ref: '#/definitions/ErrorMissingParameters'

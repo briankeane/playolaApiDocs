@@ -14,8 +14,4 @@ properties:
     description: The id of the spin.
     example: 58a59f25e6351a94385a9233
   audioBlock:
-    type: object
-    description: >-
-      The audioBlock to be played.  It can be a song, a voicetrack, or a
-      commercialBlock.
     $ref: '#/definitions/Song'

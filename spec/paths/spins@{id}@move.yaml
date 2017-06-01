@@ -2,7 +2,9 @@ put:
   summary: Move Spin
   consumes:
     - application/json
-  description: Move a spin to a new playlistPosition within the authenticated user's playlist.
+  description: >-
+    Move a spin to a new playlistPosition within the authenticated user's
+    playlist.
   parameters:
     - name: id
       type: string
@@ -21,7 +23,6 @@ put:
             type: integer
             description: The desired playlistPosition.
             example: 35
-      
   tags:
     - Spin
   responses:

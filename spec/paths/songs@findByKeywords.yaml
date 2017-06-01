@@ -1,0 +1,28 @@
+get:
+  summary: Song Find By Keywords
+  description: >-
+    Searches for songs by keywords included in the artist or title
+  parameters:
+    - name: searchString
+      in: query
+      type: string
+      format: string
+      required: true
+      description: The string to search for.
+  tags:
+    - Song
+  responses:
+    '200':
+      description: Success
+      schema:
+        type: object
+        properties:
+          searchResults:
+            type: array
+            items:
+              $ref: '#/definitions/Song'
+    '422':
+      description: Unprocessable Entity
+      schema:
+        $ref: '#/definitions/ErrorMissingParameters'
+

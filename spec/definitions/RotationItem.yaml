@@ -9,7 +9,6 @@ properties:
     description: A number representing the spin's position within the user's playlist.
     example: 32
   song:
-    type: object
     $ref: '#/definitions/Song'
   userID:
     type: string

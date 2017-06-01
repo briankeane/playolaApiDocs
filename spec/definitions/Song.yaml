@@ -48,5 +48,17 @@ properties:
     type: string
     description: The iTunes 'buy' link for the song.
     example: "https://itunes.apple.com/us/album/fade-to-gray/id571168342?i=571168348&uo=4"
+  eom:
+    type: integer
+    description: The 'end of message' in ms.  (The point where exit crossfade should begin song-to-song)
+    example: 160000
+  boo:
+    type: integer
+    description: The 'beginning of outro' in ms.
+    example: 155000
+  eoi:
+    type: integer
+    description: The 'end of intro' in ms.
+    example: 8000
 
 
