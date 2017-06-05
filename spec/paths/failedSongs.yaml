@@ -1,0 +1,59 @@
+get:
+  summary: Get Failed
+  description: Searches for songs by attributes
+  parameters:
+    - name: limit
+      in: query
+      type: integer
+      format: integer
+      description: Optional limit for results -- default is 10.
+    - name: id
+      in: query
+      type: string
+      description: The failed song's playola id.
+    - name: title
+      in: query
+      type: string
+      description: The title of the song.
+    - name: artist
+      in: query
+      type: string
+      description: The artist's name.
+    - name: album
+      in: query
+      type: string
+      description: The album that the song comes from.
+    - name: isrc
+      in: query
+      type: string
+      description: The song's isrc code.
+    - name: duration
+      in: query
+      type: integer
+      description: The duration of the song in ms.
+    - name: spotifyID
+      in: query
+      type: string
+      description: The song's spotify track id.
+  tags:
+    - FailedSong
+  responses:
+    '200':
+      description: Success
+      schema:
+        type: object
+        properties:
+          total:
+            type: integer
+            example: 2000
+          matching:
+            type: integer
+            example: 20
+          searchResults:
+            type: array
+            items:
+              $ref: '#/definitions/FailedSong'
+    '422':
+      description: Unprocessable Entity
+      schema:
+        $ref: '#/definitions/ErrorMissingParameters'
