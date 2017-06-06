@@ -11,7 +11,7 @@ var swaggerRepo = require('swagger-repo');
 var DIST_DIR = 'web_deploy';
 
 gulp.task('serve', ['build', 'watch', 'edit'], function() {
-  portfinder.getPort({port: 3000}, function (err, port) {
+  portfinder.getPort({port: 4000}, function (err, port) {
     gulpConnect.server({
       root: [DIST_DIR],
       livereload: true,
