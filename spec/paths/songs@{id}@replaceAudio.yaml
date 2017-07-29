@@ -1,0 +1,32 @@
+put:
+  summary: Replace Audio
+  description: Makes a request to replace the song's audio.  This will change the song's "status" to "replacing audio."  Use Get /songs/:id to monitor status.
+  parameters:
+    - name: id
+      type: string
+      in: path
+      required: true
+      description: The id of the spin to remove
+    - name: data
+      in: body
+      schema:
+        type: object
+        properties:
+          youtubeID:
+            type: string
+            description: The youtubeID to use for replacing the audio.
+  tags:
+    - Song
+  responses:
+    '200':
+      description: Success
+      schema:
+        type: object
+        properties:
+          message:
+            type: string
+            example: audio replacement started
+    '422':
+      description: Unprocessable Entity
+      schema:
+        $ref: '#/definitions/ErrorMissingParameters'
