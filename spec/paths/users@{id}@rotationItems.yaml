@@ -17,18 +17,21 @@ get:
       schema:
         type: object
         properties:
-          heavy:
-            type: array
-            items:
-              $ref: '#/definitions/RotationItem'
-          medium:
-            type: array
-            items:
-              $ref: '#/definitions/RotationItem'
-          light:
-            type: array
-            items:
-              $ref: '#/definitions/RotationItem'
+          rotationItems:
+            type: object
+            properties:
+              heavy:
+                type: array
+                items:
+                  $ref: '#/definitions/RotationItem'
+              medium:
+                type: array
+                items:
+                  $ref: '#/definitions/RotationItem'
+              light:
+                type: array
+                items:
+                  $ref: '#/definitions/RotationItem'
     '401':
       description: Unauthorized
     '404':
