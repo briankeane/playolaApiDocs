@@ -64,8 +64,8 @@ put:
           bio:
             type: string
             description: >-
-              A bio written by the user.  Does not exist if the user has not chosen to
-              provide one.
+              A bio written by the user.  Does not exist if the user has not
+              chosen to provide one.
             example: Nothing to see here. Please move along...
           profileImageKey:
             type: string
@@ -74,24 +74,29 @@ put:
           deepLink:
             type: string
             description: >-
-              A link to the user's station through the app.  To send a link to the
-              station, prepend with 'playola://'
+              A link to the user's station through the app.  To send a link to
+              the station, prepend with 'playola://'
             example: bobsCoolStation
           addAppleNotificationDeviceToken:
             type: string
             description: >-
-              An apple notification device token -- if this param is included in the query,
-              it will be added to any already existing apple notification device tokens.
+              An apple notification device token -- if this param is included in
+              the query, it will be added to any already existing apple
+              notification device tokens.
           removeAppleNotificationDeviceToken:
             type: string
             description: >-
-              An apple notification device token -- if this param is included in the query,
-              it will be removed from the list of the user's apple notification device tokens.
+              An apple notification device token -- if this param is included in
+              the query, it will be removed from the list of the user's apple
+              notification device tokens.
   responses:
     '200':
       description: Success
       schema:
-        $ref: '#/definitions/User'
+        type: object
+        properties:
+          user:
+            $ref: '#/definitions/User'
     '404':
       description: User Not Found
       schema:

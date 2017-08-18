@@ -1,6 +1,6 @@
 get:
-  summary: GET users by attributes
-  description: Searches for users by any combination of these properties
+  summary: GET Multiple Users
+  description: Searches for users by an array of userIDs
   parameters:
     - name: userIDs
       in: query
