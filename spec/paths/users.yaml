@@ -1,0 +1,43 @@
+post:
+  summary: Create User
+  description: Creates a verified user from its emailConfirmation and passcode
+  parameters:
+    - in: body
+      name: user
+      required: true
+      schema:
+        type: object
+        required:
+          - emailConfirmationID
+          - passcode
+        properties:
+          emailConfirmationID:
+            type: string
+            description: The id of the emailConfirmation that was sent to this user
+          passcode:
+            type: string
+            description: the passcode that was emailed to the user
+  responses:
+    '200':
+      description: Success
+      schema:
+        type: object
+        properties:
+          user:
+            $ref: '#/definitions/User'
+    '401':
+      description: Unauthorized
+      schema:
+        type: object
+        properties:
+          code:
+            type: integer
+            format: int32
+            example: 422
+          message:
+            type: string
+            example: Incorrect Passcode
+    '422':
+      description: Unprocessable Entity
+      schema:
+        $ref: '#/definitions/ErrorMissingParameters'

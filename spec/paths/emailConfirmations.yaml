@@ -1,0 +1,34 @@
+post:
+  summary: Create EmailConfirmation
+  description: >-
+    Requests an emailConfirmation be sent for user verification before
+    user#Create
+  parameters:
+    - in: body
+      name: emailConfirmation
+      required: true
+      schema:
+        type: object
+        required:
+          - displayName
+          - email
+          - password
+        properties:
+          displayName:
+            type: string
+          email:
+            type: string
+          password:
+            type: string
+  responses:
+    '200':
+      description: Success
+      schema:
+        type: object
+        properties:
+          user:
+            $ref: '#/definitions/User'
+    '422':
+      description: Unprocessable Entity
+      schema:
+        $ref: '#/definitions/ErrorMissingParameters'
