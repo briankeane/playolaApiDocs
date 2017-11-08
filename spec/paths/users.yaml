@@ -1,4 +1,6 @@
 post:
+  tags: 
+    - User
   summary: Create User
   description: Creates a verified user from its emailConfirmation and passcode
   parameters:
