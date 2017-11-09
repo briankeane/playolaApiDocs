@@ -1,5 +1,5 @@
 post:
-  tags: 
+  tags:
     - User
   summary: Create User
   description: Creates a verified user from its emailConfirmation and passcode
@@ -25,6 +25,10 @@ post:
       schema:
         type: object
         properties:
+          token:
+            type: string
+            description: the playolaAccessToken for the new user
+            example: thisIsAPlayolaAccessToken
           user:
             $ref: '#/definitions/User'
     '401':
