@@ -1,0 +1,74 @@
+put:
+  summary: Start Station
+  consumes:
+    - application/json
+  description: >-
+    This endpoint starts a user's station.  The call will be rejected if the
+    station is not ready to be started beacause of these prerequisits:
+      1) Minimum number of RotationItems in each song bin must be met
+      2) User's zipcode must exist
+  tags:
+    - User
+  responses:
+    '200':
+      description: Success
+      schema:
+        type: object
+        properties:
+          message:
+            type: string
+            example: station restarting.
+    '401':
+      description: Unauthorized
+    '404':
+      description: User Not Found
+      schema:
+        type: object
+        properties:
+          message:
+            type: string
+            example: user not found
+          errorCode:
+            type: integer
+            example: 1221
+    '422':
+      description: Unprocessable Entity
+      schema:
+        type: object
+        properties:
+          playolaError:
+              type: object
+              properties:
+                code:
+                  type: integer
+                  example: 5001
+                description:
+                  type: string
+                  example: the user's song bins do not all meet their minimum levels.
+                info:
+                  type: object
+                  properties:
+                    required:
+                      type: object
+                      properties:
+                        heavy:
+                          type: integer
+                          example: 20
+                        medium:
+                          type: integer
+                          example: 30
+                        light:
+                          type: integer
+                          example: 40
+                    currentCount:
+                      type: object
+                      properties:
+                        heavy:
+                          type: integer
+                          example: 20
+                        medium:
+                          type: integer
+                          example: 30
+                        light:
+                          type: integer
+                          example: 40

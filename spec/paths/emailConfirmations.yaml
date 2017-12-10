@@ -24,10 +24,7 @@ post:
     '200':
       description: Success
       schema:
-        type: object
-        properties:
-          user:
-            $ref: '#/definitions/User'
+        $ref: '#/definitions/EmailConfirmation'
     '422':
       description: Unprocessable Entity
       schema:

@@ -1,0 +1,18 @@
+type: object
+properties:
+  id:
+    type: string
+    description: The user's playola id.
+    example: "553ececb7be2cd0011669706"
+  displayName:
+    type: string
+    description: The user's playola display name.
+    example: Bob
+  email:
+    type: string
+    description: The user's email
+    example: bob@bob.com
+  profileImageKey:
+    type: string
+    description: The s3 key where the user's profileImage is stored.
+    example: 56f2f89c43e6372664ca6e7c.jpg

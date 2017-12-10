@@ -1,0 +1,31 @@
+post:
+  summary: Request Song Via SpotifyID
+  description: >-
+    Requests a song via it's spotifyID. If the song does not exist, it will
+    attempt to create it.
+  parameters:
+    - name: spotifyID
+      in: path
+      type: string
+      format: string
+      required: true
+      description: The spotifyID of the desired song.
+  tags:
+    - Song
+  responses:
+    '200':
+      description: Success
+      schema:
+        type: object
+        properties:
+          song:
+            $ref: '#/definitions/Song'
+          songStatus:
+            type: object
+            properties:
+              description:
+                type: string
+                example: null
+              code:
+                type: integer
+                example: 9001

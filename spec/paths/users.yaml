@@ -46,4 +46,4 @@ post:
     '422':
       description: Unprocessable Entity
       schema:
-        $ref: '#/definitions/ErrorMissingParameters'
+        $ref: '#/definitions/ErrorPasswordIncorrect'
