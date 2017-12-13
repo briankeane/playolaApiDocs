@@ -1,0 +1,2528 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Playola Api",
+    "description": "Build and listen to internet radio stations.",
+    "version": "1.0.0"
+  },
+  "host": "api.playola.fm",
+  "schemes": [
+    "https"
+  ],
+  "basePath": "/api/v1",
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/listeningSessions": {
+      "post": {
+        "summary": "Create Listening Session",
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Creates a listeningSession.  If there is another listeningSession open, it will be closed (or extended if userBeingListenedToID matches).",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "userBeingListenedToID": {
+                  "type": "string",
+                  "description": "The id of the user being listened to",
+                  "example": "5531636b4b1f7e86214235cc"
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "ListeningSession"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "success"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "userBeingListenedToID Not Found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "user not found"
+                },
+                "errorCode": {
+                  "type": "integer",
+                  "example": 1221
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "invalid ID"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/listeningSessions/activeSessions": {
+      "get": {
+        "summary": "GET topUsers",
+        "description": "Provides a list of current active listeners on playola.",
+        "tags": [
+          "User"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "listeners": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/User"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/listeningSessions/activeSessionsCount": {
+      "get": {
+        "summary": "Active Sessions Count",
+        "description": "Provides a list of current active listeners on playola.",
+        "tags": [
+          "User"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "count": {
+                  "type": "integer",
+                  "example": 42
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/listeningSessions/anonymous": {
+      "post": {
+        "summary": "Create Anonymous Listening Session",
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Creates a listeningSession for a user that has not registered yet. If there is another listeningSession open, it will be closed (or extended if userBeingListenedToID matches).",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "userBeingListenedToID": {
+                  "type": "string",
+                  "description": "The id of the user being listened to",
+                  "example": "5531636b4b1f7e86214235cc"
+                },
+                "deviceID": {
+                  "type": "string",
+                  "description": "A unique deviceID for the listener",
+                  "example": "5531636b4b1f7e86214235cc"
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "ListeningSession"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "success"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "userBeingListenedToID Not Found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "user not found"
+                },
+                "errorCode": {
+                  "type": "integer",
+                  "example": 1221
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "invalid ID"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/listeningSessions/endAnonymous": {
+      "post": {
+        "summary": "End Anonymous Listening Session",
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Ends an anonymous listeningSession",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "deviceID": {
+                  "type": "string",
+                  "description": "A unique deviceID for the listener",
+                  "example": "5531636b4b1f7e86214235cc"
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "ListeningSession"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "success"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "userBeingListenedToID Not Found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "user not found"
+                },
+                "errorCode": {
+                  "type": "integer",
+                  "example": 1221
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "invalid ID"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/listeningSessions/endSession": {
+      "post": {
+        "summary": "End Listening Session",
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Ends a listeningSession for the authenticated user.",
+        "tags": [
+          "ListeningSession"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "success"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "userBeingListenedToID Not Found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "user not found"
+                },
+                "errorCode": {
+                  "type": "integer",
+                  "example": 1221
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rotationItems": {
+      "post": {
+        "summary": "Create RotationItem",
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Returns the user's active rotationItems, organized by bin.",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "songID": {
+                  "type": "string",
+                  "description": "The id of the song to be added",
+                  "example": "5531636b4b1f7e86214235cc"
+                },
+                "songIDs": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "description": "multiple songs can be added at once",
+                  "example": [
+                    "5531636b4b1f7e86214235cc",
+                    "5531636b4b1f7e86214235cc"
+                  ]
+                },
+                "bin": {
+                  "type": "string",
+                  "description": "The song bin to add it to.",
+                  "example": "5531636b4b1f7e86214235cc"
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "RotationItem"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "rotationItems": {
+                  "type": "object",
+                  "properties": {
+                    "heavy": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/definitions/RotationItem"
+                      }
+                    },
+                    "medium": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/definitions/RotationItem"
+                      }
+                    },
+                    "light": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/definitions/RotationItem"
+                      }
+                    }
+                  }
+                },
+                "updatedRotationItem": {
+                  "$ref": "#/definitions/RotationItem"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Minimum Bin Violation"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Song Not Found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "user not found"
+                },
+                "errorCode": {
+                  "type": "integer",
+                  "example": 1221
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "invalid ID"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rotationItems/{id}": {
+      "delete": {
+        "summary": "Deactivate RotationItem",
+        "consumes": [
+          "application/json"
+        ],
+        "description": "A soft delete of the rotationItem -- it will remove the rotationItem from rotation and set it's bin to \"inactive\"",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "in": "path",
+            "required": true,
+            "description": "The id of the user -- for the authenticated user, use 'me'"
+          }
+        ],
+        "tags": [
+          "RotationItem"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "heavy": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/RotationItem"
+                  }
+                },
+                "medium": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/RotationItem"
+                  }
+                },
+                "light": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/RotationItem"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "RotationItem Not Found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "user not found"
+                },
+                "errorCode": {
+                  "type": "integer",
+                  "example": 1221
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "invalid ID"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update RotationItem",
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Updates the rotationItem.",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "in": "path",
+            "required": true,
+            "description": "The id of the rotationItem to be updated"
+          },
+          {
+            "name": "data",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "eom": {
+                  "type": "integer",
+                  "example": 180000,
+                  "description": "If this value exists, it will replace values contained within the song, so that the user's fade-in/fade-outs can be customized."
+                },
+                "boo": {
+                  "type": "integer",
+                  "example": 170000,
+                  "description": "If this value exists, it will replace values contained within the song, so that the user's fade-in/fade-outs can be customized."
+                },
+                "eoi": {
+                  "type": "integer",
+                  "example": 10000,
+                  "description": "If this value exists, it will replace values contained within the song, so that the user's fade-in/fade-outs can be customized."
+                },
+                "bin": {
+                  "type": "string",
+                  "example": "heavy"
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "RotationItem"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "rotationItems": {
+                  "type": "object",
+                  "properties": {
+                    "heavy": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/definitions/RotationItem"
+                      }
+                    },
+                    "medium": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/definitions/RotationItem"
+                      }
+                    },
+                    "light": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/definitions/RotationItem"
+                      }
+                    }
+                  }
+                },
+                "updatedRotationItem": {
+                  "$ref": "#/definitions/RotationItem"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Minimum Bin Violation"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "RotationItem Not Found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "user not found"
+                },
+                "errorCode": {
+                  "type": "integer",
+                  "example": 1221
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "invalid ID"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rotationItems/unmarkedSongsInRotation": {
+      "get": {
+        "summary": "Rotation Item unmarkedSongsInRotation",
+        "description": "Searches for any songs in rotation that have not yet been marked.",
+        "parameters": [
+          {
+            "name": "sampleSize",
+            "in": "query",
+            "type": "number",
+            "format": "number",
+            "description": "The number of desired results -- default is 10."
+          }
+        ],
+        "tags": [
+          "RotationItem"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "total": {
+                  "type": "integer",
+                  "example": 2000
+                },
+                "matching": {
+                  "type": "integer",
+                  "example": 20
+                },
+                "searchResults": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Song"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "schema": {
+              "$ref": "#/definitions/ErrorMissingParameters"
+            }
+          }
+        }
+      }
+    },
+    "/rotationItems/unmarkedYouTubeSongsInRotation": {
+      "get": {
+        "summary": "Rotation Item unmarkedYouTubeSongsInRotation",
+        "description": "Searches for any songs taken from youtube that are in rotation and have not yet been marked or verified as ok",
+        "parameters": [
+          {
+            "name": "sampleSize",
+            "in": "query",
+            "type": "number",
+            "format": "number",
+            "description": "The number of desired results -- default is 10."
+          }
+        ],
+        "tags": [
+          "RotationItem"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "total": {
+                  "type": "integer",
+                  "example": 2000
+                },
+                "matching": {
+                  "type": "integer",
+                  "example": 20
+                },
+                "searchResults": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Song"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "schema": {
+              "$ref": "#/definitions/ErrorMissingParameters"
+            }
+          }
+        }
+      }
+    },
+    "/songs/{id}": {
+      "get": {
+        "summary": "Get Song",
+        "description": "Gets a song",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "in": "path",
+            "required": true,
+            "description": "The id of the spin to remove"
+          }
+        ],
+        "tags": [
+          "Song"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Song"
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Song Update",
+        "description": "Searches for songs by attributes, returns randomized query results",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "in": "path",
+            "required": true,
+            "description": "The id of the spin to remove"
+          },
+          {
+            "name": "data",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string",
+                  "description": "The title of the song."
+                },
+                "artist": {
+                  "type": "string",
+                  "description": "The artist's name."
+                },
+                "album": {
+                  "type": "string",
+                  "description": "The album that the song comes from."
+                },
+                "isrc": {
+                  "type": "string",
+                  "description": "The song's isrc code."
+                },
+                "key": {
+                  "type": "string",
+                  "description": "The s3 key for the song's file location."
+                },
+                "audioFileUrl": {
+                  "type": "string",
+                  "description": "The url where the audio file can be downloaded"
+                },
+                "duration": {
+                  "type": "integer",
+                  "description": "The duration of the song in ms."
+                },
+                "albumArtworkUrl": {
+                  "type": "string",
+                  "description": "The location of the albumArtwork file."
+                },
+                "albumArtworkUrlSmall": {
+                  "type": "string",
+                  "description": "The location of a smaller albumArtwork file if available."
+                },
+                "spotifyID": {
+                  "type": "string",
+                  "description": "The song's spotify track id."
+                },
+                "trackViewUrl": {
+                  "type": "string",
+                  "description": "The iTunes 'buy' link for the song."
+                },
+                "eom": {
+                  "type": "integer",
+                  "description": "The 'end of message' in ms.  (The point where exit crossfade should begin song-to-song)"
+                },
+                "boo": {
+                  "type": "integer",
+                  "description": "The 'beginning of outro' in ms."
+                },
+                "eoi": {
+                  "type": "integer",
+                  "description": "The 'end of intro' in ms."
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "Song"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "total": {
+                  "type": "integer",
+                  "example": 2000
+                },
+                "matching": {
+                  "type": "integer",
+                  "example": 20
+                },
+                "searchResults": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Song"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "schema": {
+              "$ref": "#/definitions/ErrorMissingParameters"
+            }
+          }
+        }
+      }
+    },
+    "/songs/find": {
+      "get": {
+        "summary": "Song Find",
+        "description": "Searches for songs by attributes",
+        "parameters": [
+          {
+            "name": "searchString",
+            "in": "query",
+            "type": "string",
+            "format": "string",
+            "required": true,
+            "description": "The string to search for."
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "type": "string",
+            "description": "The song's playola id."
+          },
+          {
+            "name": "title",
+            "in": "query",
+            "type": "string",
+            "description": "The title of the song."
+          },
+          {
+            "name": "artist",
+            "in": "query",
+            "type": "string",
+            "description": "The artist's name."
+          },
+          {
+            "name": "album",
+            "in": "query",
+            "type": "string",
+            "description": "The album that the song comes from."
+          },
+          {
+            "name": "isrc",
+            "in": "query",
+            "type": "string",
+            "description": "The song's isrc code."
+          },
+          {
+            "name": "key",
+            "in": "query",
+            "type": "string",
+            "description": "The s3 key for the song's file location."
+          },
+          {
+            "name": "audioFileUrl",
+            "in": "query",
+            "type": "string",
+            "description": "The url where the audio file can be downloaded"
+          },
+          {
+            "name": "duration",
+            "in": "query",
+            "type": "integer",
+            "description": "The duration of the song in ms."
+          },
+          {
+            "name": "albumArtworkUrl",
+            "in": "query",
+            "type": "string",
+            "description": "The location of the albumArtwork file."
+          },
+          {
+            "name": "albumArtworkUrlSmall",
+            "in": "query",
+            "type": "string",
+            "description": "The location of a smaller albumArtwork file if available."
+          },
+          {
+            "name": "spotifyID",
+            "in": "query",
+            "type": "string",
+            "description": "The song's spotify track id."
+          },
+          {
+            "name": "trackViewUrl",
+            "in": "query",
+            "type": "string",
+            "description": "The iTunes 'buy' link for the song."
+          },
+          {
+            "name": "eom",
+            "in": "query",
+            "type": "integer",
+            "description": "The 'end of message' in ms.  (The point where exit crossfade should begin song-to-song)"
+          },
+          {
+            "name": "boo",
+            "in": "query",
+            "type": "integer",
+            "description": "The 'beginning of outro' in ms."
+          },
+          {
+            "name": "eoi",
+            "in": "query",
+            "type": "integer",
+            "description": "The 'end of intro' in ms."
+          }
+        ],
+        "tags": [
+          "Song"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "total": {
+                  "type": "integer",
+                  "example": 2000
+                },
+                "matching": {
+                  "type": "integer",
+                  "example": 20
+                },
+                "searchResults": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Song"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "schema": {
+              "$ref": "#/definitions/ErrorMissingParameters"
+            }
+          }
+        }
+      }
+    },
+    "/songs/findByKeywords": {
+      "get": {
+        "summary": "Song Find By Keywords",
+        "description": "Searches for songs by keywords included in the artist or title",
+        "parameters": [
+          {
+            "name": "searchString",
+            "in": "query",
+            "type": "string",
+            "format": "string",
+            "required": true,
+            "description": "The string to search for."
+          }
+        ],
+        "tags": [
+          "Song"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "searchResults": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Song"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "schema": {
+              "$ref": "#/definitions/ErrorMissingParameters"
+            }
+          }
+        }
+      }
+    },
+    "/songs/findRandom": {
+      "get": {
+        "summary": "Song Find Random",
+        "description": "Searches for songs by attributes, returns randomized query results",
+        "parameters": [
+          {
+            "name": "searchString",
+            "in": "query",
+            "type": "string",
+            "format": "string",
+            "required": true,
+            "description": "The string to search for."
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "type": "string",
+            "description": "The song's playola id."
+          },
+          {
+            "name": "title",
+            "in": "query",
+            "type": "string",
+            "description": "The title of the song."
+          },
+          {
+            "name": "artist",
+            "in": "query",
+            "type": "string",
+            "description": "The artist's name."
+          },
+          {
+            "name": "album",
+            "in": "query",
+            "type": "string",
+            "description": "The album that the song comes from."
+          },
+          {
+            "name": "isrc",
+            "in": "query",
+            "type": "string",
+            "description": "The song's isrc code."
+          },
+          {
+            "name": "key",
+            "in": "query",
+            "type": "string",
+            "description": "The s3 key for the song's file location."
+          },
+          {
+            "name": "audioFileUrl",
+            "in": "query",
+            "type": "string",
+            "description": "The url where the audio file can be downloaded"
+          },
+          {
+            "name": "duration",
+            "in": "query",
+            "type": "integer",
+            "description": "The duration of the song in ms."
+          },
+          {
+            "name": "albumArtworkUrl",
+            "in": "query",
+            "type": "string",
+            "description": "The location of the albumArtwork file."
+          },
+          {
+            "name": "albumArtworkUrlSmall",
+            "in": "query",
+            "type": "string",
+            "description": "The location of a smaller albumArtwork file if available."
+          },
+          {
+            "name": "spotifyID",
+            "in": "query",
+            "type": "string",
+            "description": "The song's spotify track id."
+          },
+          {
+            "name": "trackViewUrl",
+            "in": "query",
+            "type": "string",
+            "description": "The iTunes 'buy' link for the song."
+          },
+          {
+            "name": "eom",
+            "in": "query",
+            "type": "integer",
+            "description": "The 'end of message' in ms.  (The point where exit crossfade should begin song-to-song)"
+          },
+          {
+            "name": "boo",
+            "in": "query",
+            "type": "integer",
+            "description": "The 'beginning of outro' in ms."
+          },
+          {
+            "name": "eoi",
+            "in": "query",
+            "type": "integer",
+            "description": "The 'end of intro' in ms."
+          }
+        ],
+        "tags": [
+          "Song"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "total": {
+                  "type": "integer",
+                  "example": 2000
+                },
+                "matching": {
+                  "type": "integer",
+                  "example": 20
+                },
+                "searchResults": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Song"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "schema": {
+              "$ref": "#/definitions/ErrorMissingParameters"
+            }
+          }
+        }
+      }
+    },
+    "/spins": {
+      "post": {
+        "summary": "Create Spin",
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Remove the upcoming spin from the user's playlist.",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "description": "Get Customer Details",
+            "schema": {
+              "type": "object",
+              "required": [
+                "audioBlockID",
+                "playlistPosition"
+              ],
+              "properties": {
+                "audioBlockID": {
+                  "type": "string",
+                  "description": "The id of the audioBlock to be added",
+                  "example": "5ececb7b53011669706e2cd0"
+                },
+                "playlistPosition": {
+                  "type": "integer",
+                  "description": "The desired playlistPosition.",
+                  "example": 35
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "Spin"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "user": {
+                  "$ref": "#/definitions/User"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Spin Not Found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "spin not found"
+                },
+                "errorCode": {
+                  "type": "integer",
+                  "example": 1221
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "invalid audioBlockID"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/spins/{id}": {
+      "delete": {
+        "summary": "Remove Spin",
+        "description": "Remove the upcoming spin from the user's playlist.",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "in": "path",
+            "required": true,
+            "description": "The id of the spin to remove"
+          }
+        ],
+        "tags": [
+          "Spin"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "user": {
+                  "$ref": "#/definitions/User"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Spin Not Found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "spin not found"
+                },
+                "errorCode": {
+                  "type": "integer",
+                  "example": 1221
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid spinID",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "invalid spinID"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/spins/{id}/move": {
+      "put": {
+        "summary": "Move Spin",
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Move a spin to a new playlistPosition within the authenticated user's playlist.",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "in": "path",
+            "required": true,
+            "description": "The id of the spin to be moved"
+          },
+          {
+            "name": "data",
+            "in": "body",
+            "description": "Get Customer Details",
+            "schema": {
+              "type": "object",
+              "required": [
+                "newPlaylistPosition"
+              ],
+              "properties": {
+                "newPlaylistPosition": {
+                  "type": "integer",
+                  "description": "The desired playlistPosition.",
+                  "example": 35
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "Spin"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "user": {
+                  "$ref": "#/definitions/User"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Spin Not Found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "spin not found"
+                },
+                "errorCode": {
+                  "type": "integer",
+                  "example": 1221
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "invalid newPlaylistPosition"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/spins/shuffle": {
+      "put": {
+        "summary": "Shuffle Spins",
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Shuffle the spins of the authenticated user.  This will shuffle everything after the next few spins.",
+        "parameters": [],
+        "tags": [
+          "Spin"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "user": {
+                  "$ref": "#/definitions/User"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/users/{id}": {
+      "get": {
+        "summary": "Get User",
+        "description": "Searches for a user by keywords included in the displayName",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "string",
+            "format": "string",
+            "required": true,
+            "description": "The id of the user to get.  For the authenticated user, use 'me'"
+          }
+        ],
+        "tags": [
+          "User"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "404": {
+            "description": "User Not Found",
+            "schema": {
+              "$ref": "#/definitions/ErrorUserNotFound"
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "schema": {
+              "$ref": "#/definitions/ErrorMissingParameters"
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Edit User",
+        "description": "Edits a user.",
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "string",
+            "format": "string",
+            "required": true,
+            "description": "The id of the user to get.  For the authenticated user, use 'me'"
+          },
+          {
+            "name": "data",
+            "in": "body",
+            "description": "Data to change",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "displayName": {
+                  "type": "string",
+                  "description": "The user's playola display name.",
+                  "example": "Bob"
+                },
+                "email": {
+                  "type": "string",
+                  "description": "The user's email",
+                  "example": "bob@bob.com"
+                },
+                "gender": {
+                  "type": "string",
+                  "description": "The user's gender",
+                  "example": "male"
+                },
+                "zipcode": {
+                  "type": "string",
+                  "description": "The user's 5-digit zipcode.",
+                  "example": "78748"
+                },
+                "timezone": {
+                  "type": "string",
+                  "description": "The user's timezone.",
+                  "example": "America/Chicago"
+                },
+                "bio": {
+                  "type": "string",
+                  "description": "A bio written by the user.  Does not exist if the user has not chosen to provide one.",
+                  "example": "Nothing to see here. Please move along..."
+                },
+                "profileImageKey": {
+                  "type": "string",
+                  "description": "The s3 key where the user's profileImage is stored.",
+                  "example": "56f2f89c43e6372664ca6e7c.jpg"
+                },
+                "deepLink": {
+                  "type": "string",
+                  "description": "A link to the user's station through the app.  To send a link to the station, prepend with 'playola://'",
+                  "example": "bobsCoolStation"
+                },
+                "addAppleNotificationDeviceToken": {
+                  "type": "string",
+                  "description": "An apple notification device token -- if this param is included in the query, it will be added to any already existing apple notification device tokens."
+                },
+                "removeAppleNotificationDeviceToken": {
+                  "type": "string",
+                  "description": "An apple notification device token -- if this param is included in the query, it will be removed from the list of the user's apple notification device tokens."
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "404": {
+            "description": "User Not Found",
+            "schema": {
+              "$ref": "#/definitions/ErrorUserNotFound"
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "schema": {
+              "$ref": "#/definitions/ErrorZipcodeNotFound"
+            }
+          }
+        }
+      }
+    },
+    "/users/{id}/follow": {
+      "put": {
+        "summary": "Follow User",
+        "description": "Adds the user to the authenticated user's presets.",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "in": "path",
+            "required": true,
+            "description": "The id of the user to follow"
+          }
+        ],
+        "tags": [
+          "User"
+        ],
+        "responses": {
+          "201": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "presets": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/User"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "User Not Found",
+            "schema": {
+              "$ref": "#/definitions/ErrorUserNotFound"
+            }
+          },
+          "422": {
+            "description": "Missing Parameters",
+            "schema": {
+              "$ref": "#/definitions/ErrorMissingParameters"
+            }
+          }
+        }
+      }
+    },
+    "/users/{id}/rotationItems": {
+      "get": {
+        "summary": "A User's RotationItems",
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Returns the user's active rotationItems, organized by bin.",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "in": "path",
+            "required": true,
+            "description": "The id of the user -- for the authenticated user, use 'me'"
+          }
+        ],
+        "tags": [
+          "User"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "heavy": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/RotationItem"
+                  }
+                },
+                "medium": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/RotationItem"
+                  }
+                },
+                "light": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/RotationItem"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "User Not Found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "user not found"
+                },
+                "errorCode": {
+                  "type": "integer",
+                  "example": 1221
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "spotifyArtistIDs or spotifyTrackIDs required."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{id}/unfollow": {
+      "put": {
+        "summary": "Unfollow User",
+        "description": "Remove the user from the authenticated user's presets.",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "in": "path",
+            "required": true,
+            "description": "The id of the user to follow"
+          }
+        ],
+        "tags": [
+          "User"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "presets": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/User"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "User Not Found",
+            "schema": {
+              "$ref": "#/definitions/ErrorUserNotFound"
+            }
+          },
+          "422": {
+            "description": "Missing Parameters",
+            "schema": {
+              "$ref": "#/definitions/ErrorMissingParameters"
+            }
+          }
+        }
+      }
+    },
+    "/users/findByKeywords": {
+      "get": {
+        "summary": "User Find By Keywords",
+        "description": "Searches for a user by keywords included in the displayName",
+        "parameters": [
+          {
+            "name": "searchString",
+            "in": "query",
+            "type": "string",
+            "format": "string",
+            "required": true,
+            "description": "The string to search for."
+          }
+        ],
+        "tags": [
+          "User"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "searchResults": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/User"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "schema": {
+              "$ref": "#/definitions/ErrorMissingParameters"
+            }
+          }
+        }
+      }
+    },
+    "/users/getByAttributes": {
+      "get": {
+        "summary": "GET users by attributes",
+        "description": "Searches for users by any combination of these properties",
+        "parameters": [
+          {
+            "name": "facebookUIDs",
+            "in": "query",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "An array of facebookUIDs to search for"
+          },
+          {
+            "name": "googleUIDs",
+            "in": "query",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "An array of googleUIDs to search for"
+          },
+          {
+            "name": "emails",
+            "in": "query",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "An array of emails to search for"
+          },
+          {
+            "name": "deepLink",
+            "in": "query",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "An array of deepLinks to search for"
+          },
+          {
+            "name": "passwordResetKey",
+            "in": "query",
+            "type": "string",
+            "description": "A passwordResetKey to search for"
+          }
+        ],
+        "tags": [
+          "User"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "searchResults": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/User"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "schema": {
+              "$ref": "#/definitions/ErrorMissingParameters"
+            }
+          }
+        }
+      }
+    },
+    "/users/getMultipleUsers": {
+      "get": {
+        "summary": "GET users by attributes",
+        "description": "Searches for users by any combination of these properties",
+        "parameters": [
+          {
+            "name": "userIDs",
+            "in": "query",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "An array of userIDs to search for"
+          }
+        ],
+        "tags": [
+          "User"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "searchResults": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/User"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/me/changePassword": {
+      "put": {
+        "summary": "Change Password",
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Resets a user's station.  This will reset all the user's rotationItems and reschedule their playlist.  If they do not yet have a station running then it will be created and started.\nThe process of starting a station could take up to 60 secs, so this endpoint response 200 indicating that the process has been successfully started. To monitor progress, poll '/users/me' until the stationStatus property no longer equals 'generating'. If there is an error in creating the station, the stationStatus will be changed to indicate the type of error, and the station will remain the same as before.",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "description": "Get Customer Details",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "newPassword": {
+                  "type": "string",
+                  "description": "The new password for the user.",
+                  "example": "wearenumber1"
+                },
+                "oldPassword": {
+                  "type": "string",
+                  "description": "The previous password.  Required if this is not the first time the user's password has been set.",
+                  "example": "wewerenumber2"
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "User"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "password change successful."
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Incorrect Password",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "incorrect password"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/me/resetStation": {
+      "put": {
+        "summary": "Reset Station",
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Resets a user's station.  This will reset all the user's rotationItems and reschedule their playlist.  If they do not yet have a station running then it will be created and started.\nThe process of starting a station could take up to 60 secs, so this endpoint response 200 indicating that the process has been successfully started. To monitor progress, poll '/users/me' until the stationStatus property no longer equals 'generating'. If there is an error in creating the station, the stationStatus will be changed to indicate the type of error, and the station will remain the same as before.",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "description": "Get Customer Details",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "spotifyTrackIDs": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "description": "An array of spotifyTrackIDs.  The new station will included as many of these tracks as possible in the new station.  If there are not enough to create a station, it will pad the station with similar songs.",
+                  "example": [
+                    "7BvpGkNPd49xhN7EguxJz0",
+                    "0ujUgkXNyHUgZDKZW6Knxw"
+                  ]
+                },
+                "spotifyArtistIDs": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "description": "An array of spotifyArtistIDs.  The new station will consist of songs by these artists and similar to these artists.",
+                  "example": [
+                    "04DUpHOyQqwbHFyvIhcGi3",
+                    "5Fl8WfOtEyX44OncOpcrhQ"
+                  ]
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "User"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "station restarting."
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "User Not Found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "user not found"
+                },
+                "errorCode": {
+                  "type": "integer",
+                  "example": 1221
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "spotifyArtistIDs or spotifyTrackIDs required."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/requestPasswordReset": {
+      "post": {
+        "summary": "Request Password Reset",
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Sends a password reset email to the user.",
+        "tags": [
+          "User"
+        ],
+        "responses": {
+          "201": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "email sent."
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/users/topUsers": {
+      "get": {
+        "summary": "GET topUsers",
+        "description": "Provides a list of the top broadcasters on playola",
+        "tags": [
+          "User"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "topUsers": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/User"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users${id}/presets": {
+      "get": {
+        "summary": "User's Presets",
+        "description": "Gets the users' \"presets\" list",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "string",
+            "format": "string",
+            "required": true,
+            "description": "The id of the user whose presets to get.  For the authenticated user, use 'me'"
+          }
+        ],
+        "tags": [
+          "User"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "presets": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/User"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "User Not Found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "user not found"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "ErrorMissingParameters": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32",
+          "example": 422
+        },
+        "message": {
+          "type": "string",
+          "example": "Missing Parameters: [missing parameters listed here...]"
+        }
+      }
+    },
+    "ErrorUserNotFound": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32",
+          "example": 404
+        },
+        "message": {
+          "type": "string",
+          "example": "user not found"
+        }
+      }
+    },
+    "ErrorZipcodeNotFound": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32",
+          "example": 404
+        },
+        "message": {
+          "type": "string",
+          "example": "zipcode not found"
+        }
+      }
+    },
+    "RotationItem": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The id of the rotationItem.",
+          "example": "58a59f25e6351a94385a9233"
+        },
+        "user": {
+          "type": "integer",
+          "description": "A number representing the spin's position within the user's playlist.",
+          "example": 32
+        },
+        "song": {
+          "$ref": "#/definitions/Song"
+        },
+        "userID": {
+          "type": "string",
+          "description": "The owning user's id.",
+          "example": "58a59f25e6351a94385a9233"
+        },
+        "eom": {
+          "type": "integer",
+          "example": 180000,
+          "description": "If this value exists, it will replace values contained within the song, so that the user's fade-in/fade-outs can be customized."
+        },
+        "boo": {
+          "type": "integer",
+          "example": 170000,
+          "description": "If this value exists, it will replace values contained within the song, so that the user's fade-in/fade-outs can be customized."
+        },
+        "eoi": {
+          "type": "integer",
+          "example": 10000,
+          "description": "If this value exists, it will replace values contained within the song, so that the user's fade-in/fade-outs can be customized."
+        },
+        "bin": {
+          "type": "string",
+          "example": "heavy"
+        },
+        "assignedAt": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2017-02-16T12:46:19.360Z"
+        },
+        "history": {
+          "type": "array",
+          "description": "This contains the history of the song's bin settings for this station.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "bin": {
+                "type": "string",
+                "example": "medium"
+              },
+              "assignedAt": {
+                "type": "string",
+                "format": "date-time",
+                "example": "2017-02-16T12:46:19.360Z"
+              }
+            }
+          }
+        }
+      }
+    },
+    "Song": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The song's playola id.",
+          "example": "5531636b4b1f7e86214235cc"
+        },
+        "title": {
+          "type": "string",
+          "description": "The title of the song.",
+          "example": "Fade to Gray"
+        },
+        "artist": {
+          "type": "string",
+          "description": "The artist's name.",
+          "example": "Rachel Loy"
+        },
+        "album": {
+          "type": "string",
+          "description": "The album that the song comes from.",
+          "example": "Broken Machine"
+        },
+        "isrc": {
+          "type": "string",
+          "description": "The song's isrc code.",
+          "example": "ushm21226779"
+        },
+        "key": {
+          "type": "string",
+          "description": "The s3 key for the song's file location.",
+          "example": "-pl-0000012-Rachel-Loy-Fade-to-Gray.mp3"
+        },
+        "audioFileUrl": {
+          "type": "string",
+          "description": "The url where the audio file can be downloaded",
+          "example": "//songs.playola.fm/-pl-0000438-RachelLoy-AfterTheStorm.mp3"
+        },
+        "duration": {
+          "type": "integer",
+          "description": "The duration of the song in ms.",
+          "example": 290925
+        },
+        "albumArtworkUrl": {
+          "type": "string",
+          "description": "The location of the albumArtwork file.",
+          "example": "http://is1.mzstatic.com/image/pf/us/r30/Music/v4/72/1b/62/721b6246-b012-ef31-c2e8-0a141c81517c/884501724586.600x600-75.jpg"
+        },
+        "albumArtworkUrlSmall": {
+          "type": "string",
+          "description": "The location of a smaller albumArtwork file if available.",
+          "example": "http://is1.mzstatic.com/image/pf/us/r30/Music/v4/72/1b/62/721b6246-b012-ef31-c2e8-0a141c81517c/884501724586.100x100-75.jpg"
+        },
+        "spotifyID": {
+          "type": "string",
+          "description": "The song's spotify track id.",
+          "example": "7BvpGkNPd49xhN7EguxJz0"
+        },
+        "trackViewUrl": {
+          "type": "string",
+          "description": "The iTunes 'buy' link for the song.",
+          "example": "https://itunes.apple.com/us/album/fade-to-gray/id571168342?i=571168348&uo=4"
+        },
+        "eom": {
+          "type": "integer",
+          "description": "The 'end of message' in ms.  (The point where exit crossfade should begin song-to-song)",
+          "example": 160000
+        },
+        "boo": {
+          "type": "integer",
+          "description": "The 'beginning of outro' in ms.",
+          "example": 155000
+        },
+        "eoi": {
+          "type": "integer",
+          "description": "The 'end of intro' in ms.",
+          "example": 8000
+        }
+      }
+    },
+    "Spin": {
+      "type": "object",
+      "properties": {
+        "playlistPosition": {
+          "type": "integer",
+          "description": "A number representing the spin's position within the user's playlist.",
+          "example": 32
+        },
+        "airtime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The scheduled airtime of the spin.",
+          "example": "2017-02-16T12:46:19.360Z"
+        },
+        "id": {
+          "type": "string",
+          "description": "The id of the spin.",
+          "example": "58a59f25e6351a94385a9233"
+        },
+        "audioBlock": {
+          "$ref": "#/definitions/Song"
+        }
+      }
+    },
+    "User": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The user's playola id.",
+          "example": "553ececb7be2cd0011669706"
+        },
+        "displayName": {
+          "type": "string",
+          "description": "The user's playola display name.",
+          "example": "Bob"
+        },
+        "email": {
+          "type": "string",
+          "description": "The user's email",
+          "example": "bob@bob.com"
+        },
+        "gender": {
+          "type": "string",
+          "description": "The user's gender",
+          "example": "male"
+        },
+        "zipcode": {
+          "type": "string",
+          "description": "The user's 5-digit zipcode.",
+          "example": "78748"
+        },
+        "timezone": {
+          "type": "string",
+          "description": "The user's timezone.",
+          "example": "America/Chicago"
+        },
+        "bio": {
+          "type": "string",
+          "description": "A bio written by the user.  Does not exist if the user has not chosen to provide one.",
+          "example": "Nothing to see here. Please move along..."
+        },
+        "role": {
+          "type": "string",
+          "description": "The user's access role.",
+          "example": "user"
+        },
+        "provider": {
+          "type": "string",
+          "description": "The method by which the user first signed in. 'google', 'facebook'",
+          "example": "google"
+        },
+        "lastCommercial": {
+          "type": "object",
+          "properties": {
+            "audioFileID": {
+              "type": "integer",
+              "description": "Integer representing the commercial most recently heard by the user.",
+              "example": 5
+            }
+          },
+          "description": "Description of the most recently heard commercial."
+        },
+        "secsOfCommercialPerHour": {
+          "type": "integer",
+          "description": "the number of secs of commercials broadcast on this user's station each hour.",
+          "example": 360
+        },
+        "dailyListenTimeMS": {
+          "type": "integer",
+          "description": "The avg number of ms that this station is listened to each day.",
+          "example": 600000
+        },
+        "dailyListenTimeCalculationDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The last time that dailyListenTimeMS was calculated.",
+          "example": "1983-04-15T12:15:00.000Z"
+        },
+        "rules": {
+          "type": "object",
+          "description": "A set of customizable rules for the scheduling of the user's station",
+          "properties": {
+            "artistMinimumRest": {
+              "type": "object",
+              "description": "Describes how long to rest before repeating the same artist.",
+              "properties": {
+                "minutesOfRest": {
+                  "type": "integer",
+                  "description": "Number of minutes to rest.",
+                  "example": 70
+                }
+              }
+            },
+            "songMinimumRest": {
+              "type": "object",
+              "description": "Describes how long to rest before repeating the same song.",
+              "properties": {
+                "minutesOfRest": {
+                  "type": "integer",
+                  "description": "Number of minutes to rest.",
+                  "example": 180
+                }
+              }
+            },
+            "dayOffset": {
+              "type": "object",
+              "description": "Describes how much of a window to avoid from the previous day's program.",
+              "properties": {
+                "windowSizeMinutes": {
+                  "type": "integer",
+                  "description": "Number of minutes to in window.",
+                  "example": 60
+                }
+              }
+            }
+          }
+        },
+        "profileImageKey": {
+          "type": "string",
+          "description": "The s3 key where the user's profileImage is stored.",
+          "example": "56f2f89c43e6372664ca6e7c.jpg"
+        },
+        "profileImageUrl": {
+          "type": "string",
+          "description": "The url where the user's profileImage can be downloaded.",
+          "example": "//s3-us-west-2.amazonaws.com/playolaprofileimagesdevelopment/56f2f89c43e6372664ca6e7c.jpg"
+        },
+        "passwordExists": {
+          "type": "boolean",
+          "description": "True if the user has set a password.",
+          "example": true
+        },
+        "deepLink": {
+          "type": "string",
+          "description": "A link to the user's station through the app.  To send a link to the station, prepend with 'playola://'",
+          "example": "bobsCoolStation"
+        },
+        "playlist": {
+          "type": "array",
+          "description": "An array of all spins scheduled for the next several hours.",
+          "items": {
+            "$ref": "#/definitions/Spin"
+          }
+        },
+        "stationStatus": {
+          "type": "string",
+          "description": "Exists only if station is starting or restarting.  Possible values are:\n  'generating', 'error shuffling station', 'error resetting rotationItems', \n  'error getting recommendations'",
+          "example": "generating"
+        }
+      }
+    }
+  }
+}
