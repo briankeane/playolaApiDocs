@@ -1,0 +1,62 @@
+type: object
+properties:
+  id:
+    type: string
+    description: The song's playola id.
+    example: "5531636b4b1f7e86214235cc"
+  __t:
+    type: string
+    description: The type of audioBlock (Commentary)
+    example: "Commentary"
+  userID:
+    type: string
+    description: The id of the user that created the VoiceTrack.
+    example: "7BvpGkNPd49xhN7EguxJz0"
+  eom:
+    type: integer
+    description: The 'end of message' in ms.  (The point where exit crossfade should begin song-to-song)
+    example: 160000
+  boo:
+    type: integer
+    description: The 'beginning of outro' in ms.
+    example: 155000
+  eoi:
+    type: integer
+    description: The 'end of intro' in ms.
+    example: 8000
+  title:
+    type: string
+    description: The title of the voiceTrack.
+    example: "bob talks #55"
+  key:
+    type: string
+    description: The s3 key for the song's file location.
+    example: "-pl-0000012-Rachel-Loy-Fade-to-Gray.mp3"
+  audioFileUrl:
+    type: string
+    description: The url where the audio file can be downloaded
+    example: "//songs.playola.fm/-pl-0000438-RachelLoy-AfterTheStorm.mp3"
+  duration:
+    type: integer
+    description: The duration of the song in ms.
+    example: 290925
+  originalURL:
+    type: string
+    description: The original url that the voiceTrack was downloaded from.
+    example: "https://www.voiceTracks.com/myVoiceTrack.m4a"
+  albumArtworkUrl:
+    type: string
+    description: The location of the albumArtwork file.
+    example: "http://is1.mzstatic.com/image/pf/us/r30/Music/v4/72/1b/62/721b6246-b012-ef31-c2e8-0a141c81517c/884501724586.600x600-75.jpg"
+  albumArtworkUrlSmall:
+    type: string
+    description: The location of a smaller albumArtwork file if available.
+    example: "http://is1.mzstatic.com/image/pf/us/r30/Music/v4/72/1b/62/721b6246-b012-ef31-c2e8-0a141c81517c/884501724586.100x100-75.jpg"
+  spotifyID:
+    type: string
+    description: The song's spotify track id.
+    example: "7BvpGkNPd49xhN7EguxJz0"
+  trackViewUrl:
+    type: string
+    description: The iTunes 'buy' link for the song.
+    example: "https://itunes.apple.com/us/album/fade-to-gray/id571168342?i=571168348&uo=4"

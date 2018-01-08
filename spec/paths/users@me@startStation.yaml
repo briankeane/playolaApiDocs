@@ -15,9 +15,8 @@ put:
       schema:
         type: object
         properties:
-          message:
-            type: string
-            example: station restarting.
+          user:
+            $ref: '#/definitions/User'
     '401':
       description: Unauthorized
     '404':

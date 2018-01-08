@@ -1,0 +1,30 @@
+post:
+  summary: Create VoiceTrack
+  description: >-
+    Creates a voiceTrack from the audio file at the provided url.
+  parameters:
+    - name: url
+      in: path
+      type: string
+      format: string
+      required: true
+      description: The url of the recorded voiceTrack.
+  tags:
+    - VoiceTrack
+  responses:
+    '200':
+      description: Success
+      schema:
+        type: object
+        properties:
+          voiceTrack:
+            $ref: '#/definitions/VoiceTrack'
+          voiceTrackStatus:
+            type: object
+            properties:
+              description:
+                type: string
+                example: null
+              code:
+                type: integer
+                example: 9001
